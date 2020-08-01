@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/dino",
+  "start_url": "/dino/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#121212"
