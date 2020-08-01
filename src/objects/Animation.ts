@@ -1,5 +1,10 @@
 export class Animation {
-  constructor(spriteDataUrls: string[], private readonly fps: number) {
+  constructor(
+    spriteDataUrls: string[],
+    private readonly fps: number,
+    public readonly width: number,
+    public readonly height: number,
+  ) {
     this.sprites = spriteDataUrls.map((url) => {
       const img = new Image();
       img.src = url;

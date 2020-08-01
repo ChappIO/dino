@@ -13,7 +13,7 @@ export class Dino implements GameObject {
   public readonly height = 47;
   public y = 50;
   private vY = 0;
-  private readonly run = new Animation([run1, run2], 12);
+  private readonly run = new Animation([run1, run2], 12, this.width, this.height);
   private readonly death = sprite(dead, 50, 50);
   private readonly jumping = sprite(jump, 50, 50);
   private walking = false;
@@ -67,7 +67,7 @@ export class Dino implements GameObject {
   }
 
   private handleKeyDown(e: KeyboardEvent): void {
-    if (e.code === 'Space') {
+    if (e.code === 'Space' && !e.repeat) {
       this.jump();
     }
   }

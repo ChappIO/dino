@@ -2,7 +2,7 @@ import { GameObject } from './GameObject';
 import { Animation } from './Animation';
 import { Dino } from './Dino';
 
-const collisionMargin = 5;
+const collisionMargin = 10;
 
 export class Obstacle implements GameObject {
   public x = 0;

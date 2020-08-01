@@ -2,9 +2,7 @@ import { GameObject } from './objects/GameObject';
 import { Dino } from './objects/Dino';
 import { Floor } from './objects/Floor';
 import { Cloud } from './objects/Cloud';
-import { Obstacle } from './objects/Obstacle';
-import { Animation } from './objects/Animation';
-import cactus from './sprites/cactus-1.png';
+import { Obstacles } from './objects/Obstacles';
 
 export class Game {
   constructor(private readonly canvas: HTMLCanvasElement) {
@@ -26,12 +24,15 @@ export class Game {
       this.destroy();
       this.start();
     });
-    const c = new Obstacle(this.dino, new Animation([cactus], 1), () => floor.vX);
-    c.x = 1200;
-    c.y = floor.y - 50;
-    c.spawned = true;
 
-    this.objects = [new Cloud(30, 10), new Cloud(100, 400), new Cloud(80, 600), floor, c, this.dino];
+    this.objects = [
+      new Cloud(30, 10),
+      new Cloud(100, 400),
+      new Cloud(80, 600),
+      floor,
+      new Obstacles(this.dino, floor),
+      this.dino,
+    ];
 
     this.objects.forEach((o) => o.start());
 
