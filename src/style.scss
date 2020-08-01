@@ -1,0 +1,25 @@
+@import "~@superscreenpi/uikit";
+
+html, body, #root {
+  height: 100%;
+  -webkit-overflow-scrolling: auto;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .wrapper {
+    image-rendering: pixelated;
+    user-select: none;
+
+    @media (prefers-color-scheme: dark) {
+      filter: invert(1);
+    }
+  }
+}
