@@ -16,14 +16,16 @@ export class Game {
 
   private objects: GameObject[] = [];
   private dino?: Dino;
+  private calledGameOver = false;
+  public gameTime = 0;
+  public onGameOver?: (score: number) => void;
 
   public start(): void {
     console.log('starting game');
+    this.calledGameOver = false;
+    this.gameTime = 0;
     const floor = new Floor();
-    this.dino = new Dino(floor, () => {
-      this.destroy();
-      this.start();
-    });
+    this.dino = new Dino(floor);
 
     this.objects = [
       new Cloud(30, 10),
@@ -51,8 +53,14 @@ export class Game {
   private update(): void {
     if (!this.dino?.dead) {
       const delta = Date.now() - this.lastUpdate;
+      this.gameTime += delta;
       this.objects.forEach((o) => o.update(delta));
       this.lastUpdate = Date.now();
+    } else if (!this.calledGameOver) {
+      this.calledGameOver = true;
+      if (this.onGameOver) {
+        this.onGameOver(this.gameTime);
+      }
     }
   }
 

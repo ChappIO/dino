@@ -19,7 +19,7 @@ export class Dino implements GameObject {
   private walking = false;
   public dead = false;
 
-  constructor(private readonly floor: Floor, private readonly restart: () => void) {
+  constructor(private readonly floor: Floor) {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.jump = this.jump.bind(this);
   }
@@ -73,9 +73,6 @@ export class Dino implements GameObject {
   }
 
   private jump(): void {
-    if (this.dead) {
-      this.restart();
-    }
     if (this.walking) {
       this.vY = -1;
       this.walking = false;

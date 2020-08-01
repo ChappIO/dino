@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Game } from './Game';
+import { GameOver } from './components/GameOver';
 
 const viewWidth = 640;
 const viewHeight = 200;
@@ -7,6 +8,9 @@ const viewHeight = 200;
 export const App: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvas = canvasRef.current;
+  const [showScore, setShowScore] = useState(false);
+  const [score, setScore] = useState(0);
+  const [game, setGame] = useState<Game>();
 
   // start the game
   useEffect(() => {
@@ -14,8 +18,19 @@ export const App: React.FC = () => {
       return;
     }
     const game = new Game(canvas);
+    setGame(game);
     game.start();
-    return (): void => game.destroy();
+    game.onGameOver = (score): void => {
+      setShowScore(true);
+      setScore(score);
+    };
+    const updateScore = window.setInterval(() => {
+      setScore(game.gameTime);
+    }, 89);
+    return (): void => {
+      game.destroy();
+      clearInterval(updateScore);
+    };
   }, [canvas]);
 
   // make sure the canvas is the correct size
@@ -38,8 +53,22 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="wrapper" style={{ transform: `scale(${zoom})` }}>
-      <canvas ref={canvasRef} id="game" width={viewWidth} height={viewHeight} />
-    </div>
+    <>
+      <div className="wrapper" style={{ transform: `scale(${zoom})` }}>
+        <canvas ref={canvasRef} id="game" width={viewWidth} height={viewHeight} />
+        {!showScore && <span className="score-view">{score}</span>}
+        {showScore && canvas && (
+          <GameOver
+            score={score}
+            onRestart={(): void => {
+              game?.destroy();
+              game?.start();
+              setShowScore(false);
+              setScore(0);
+            }}
+          />
+        )}
+      </div>
+    </>
   );
 };

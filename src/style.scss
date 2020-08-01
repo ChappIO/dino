@@ -17,9 +17,30 @@ html, body, #root {
   .wrapper {
     image-rendering: pixelated;
     user-select: none;
+    background-color: var(--background);
 
-    @media (prefers-color-scheme: dark) {
-      filter: invert(1);
+    .score-view {
+      position: fixed;
+      right: 12px;
+      top: 12px;
+      font-size: 0.6rem;
+    }
+
+    canvas {
+      @media (prefers-color-scheme: dark) {
+        filter: invert(1);
+      }
     }
   }
+
+  * {
+    font-family: pixel-mix, monospace;
+  }
+}
+
+@import "components/GameOver";
+
+@font-face {
+  font-family: pixel-mix;
+  src: url("./sprites/font/pixelmix.ttf") format('truetype');
 }
