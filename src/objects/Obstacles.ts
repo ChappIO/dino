@@ -19,9 +19,11 @@ export class Obstacles implements GameObject {
 
   private obstacles: Obstacle[] = [];
   private spawner = 0;
+  private gameTime = 0;
 
   start(): void {
     this.obstacles = [];
+    this.gameTime = 0;
 
     this.spawner = window.setTimeout(this.reviveObstacle, 1000);
   }
@@ -37,6 +39,7 @@ export class Obstacles implements GameObject {
   }
 
   update(deltaT: number): void {
+    this.gameTime += deltaT;
     this.obstacles.forEach((o) => o.update(deltaT));
   }
 
@@ -50,7 +53,8 @@ export class Obstacles implements GameObject {
     obstacle.spawned = true;
 
     // spawn the next one
-    this.spawner = window.setTimeout(this.reviveObstacle, 1000 + 3000 * Math.random());
+    const diff = (1 / (1 + this.gameTime / 100000)) * 3000;
+    this.spawner = window.setTimeout(this.reviveObstacle, 500 + diff * Math.random());
   }
 
   private spawnNewObstacle(): Obstacle {
