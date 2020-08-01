@@ -8,8 +8,8 @@ const viewHeight = 200;
 export const App: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvas = canvasRef.current;
-  const [showScore, setShowScore] = useState(false);
-  const [score, setScore] = useState(0);
+  const [finalScore, setFinalScore] = useState<number>();
+  const [currentScore, setScore] = useState(0);
   const [game, setGame] = useState<Game>();
 
   // start the game
@@ -21,8 +21,7 @@ export const App: React.FC = () => {
     setGame(game);
     game.start();
     game.onGameOver = (score): void => {
-      setShowScore(true);
-      setScore(score);
+      setFinalScore(score);
     };
     const updateScore = window.setInterval(() => {
       setScore(game.gameTime);
@@ -56,14 +55,13 @@ export const App: React.FC = () => {
     <>
       <div className="wrapper" style={{ transform: `scale(${zoom})` }}>
         <canvas ref={canvasRef} id="game" width={viewWidth} height={viewHeight} />
-        {!showScore && <span className="score-view">{score}</span>}
-        {showScore && canvas && (
+        {finalScore === undefined && <span className="score-view">{currentScore}</span>}
+        {finalScore !== undefined && canvas && (
           <GameOver
-            score={score}
+            score={finalScore}
             onRestart={(): void => {
               game?.destroy();
               game?.start();
-              setShowScore(false);
               setScore(0);
             }}
           />
