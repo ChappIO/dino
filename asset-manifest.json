@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/dino/static/css/main.a93d6076.chunk.css",
-    "main.js": "/dino/static/js/main.a082525e.chunk.js",
-    "main.js.map": "/dino/static/js/main.a082525e.chunk.js.map",
+    "main.js": "/dino/static/js/main.44b08e69.chunk.js",
+    "main.js.map": "/dino/static/js/main.44b08e69.chunk.js.map",
     "runtime-main.js": "/dino/static/js/runtime-main.4d8a71fb.js",
     "runtime-main.js.map": "/dino/static/js/runtime-main.4d8a71fb.js.map",
     "static/js/2.c0bd6735.chunk.js": "/dino/static/js/2.c0bd6735.chunk.js",
     "static/js/2.c0bd6735.chunk.js.map": "/dino/static/js/2.c0bd6735.chunk.js.map",
     "index.html": "/dino/index.html",
-    "precache-manifest.64865376dc92cc5b93094ec4816563f5.js": "/dino/precache-manifest.64865376dc92cc5b93094ec4816563f5.js",
+    "precache-manifest.797fe1f55fbef3078de75e8b6e05a528.js": "/dino/precache-manifest.797fe1f55fbef3078de75e8b6e05a528.js",
     "service-worker.js": "/dino/service-worker.js",
     "static/css/main.a93d6076.chunk.css.map": "/dino/static/css/main.a93d6076.chunk.css.map",
     "static/js/2.c0bd6735.chunk.js.LICENSE.txt": "/dino/static/js/2.c0bd6735.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.4d8a71fb.js",
     "static/js/2.c0bd6735.chunk.js",
     "static/css/main.a93d6076.chunk.css",
-    "static/js/main.a082525e.chunk.js"
+    "static/js/main.44b08e69.chunk.js"
   ]
 }
