@@ -6,6 +6,8 @@ import cactus1 from '../sprites/cactus-1.png';
 import cactus2 from '../sprites/cactus-2.png';
 import cactus3 from '../sprites/cactus-3.png';
 import cactus4 from '../sprites/cactus-4.png';
+import bird1 from '../sprites/enemy1.png';
+import bird2 from '../sprites/enemy2.png';
 import { Animation } from './Animation';
 
 const cacti = [cactus1, cactus2, cactus3, cactus4];
@@ -41,7 +43,7 @@ export class Obstacles implements GameObject {
   private reviveObstacle(): void {
     let deadObstacles = this.obstacles.filter((o) => !o.spawned);
     if (deadObstacles.length === 0) {
-      deadObstacles = [this.spawnNewCactus()];
+      deadObstacles = [this.spawnNewObstacle()];
     }
     const obstacle = deadObstacles[Math.floor(Math.random() * deadObstacles.length)];
     obstacle.x = 1500;
@@ -51,6 +53,14 @@ export class Obstacles implements GameObject {
     this.spawner = window.setTimeout(this.reviveObstacle, 1000 + 3000 * Math.random());
   }
 
+  private spawnNewObstacle(): Obstacle {
+    if (Math.random() >= 0.8) {
+      return this.spawnNewBird();
+    } else {
+      return this.spawnNewCactus();
+    }
+  }
+
   private spawnNewCactus(): Obstacle {
     const animation = new Animation([cacti[Math.floor(Math.random() * cacti.length)]], 1, 25, 50);
     const cactus = new Obstacle(this.dino, animation, () => this.floor.vX);
@@ -58,5 +68,14 @@ export class Obstacles implements GameObject {
     cactus.start();
     this.obstacles.push(cactus);
     return cactus;
+  }
+
+  private spawnNewBird(): Obstacle {
+    const animation = new Animation([bird1, bird2], 3, 44, 33);
+    const bird = new Obstacle(this.dino, animation, () => this.floor.vX + 0.1);
+    bird.y = 50;
+    bird.start();
+    this.obstacles.push(bird);
+    return bird;
   }
 }

@@ -38,12 +38,16 @@ export class Obstacle implements GameObject {
     if (!hasReachedDinoFace) {
       return;
     }
-    const hasPassedDinoTail = this.dino.x + collisionMargin > this.x + this.animation.getSprite().width;
+    const hasPassedDinoTail = this.dino.x + collisionMargin > this.x + this.animation.width;
     if (hasPassedDinoTail) {
       return;
     }
     const isBelowDino = this.dino.y + this.dino.height - collisionMargin < this.y;
     if (isBelowDino) {
+      return;
+    }
+    const isAboveDino = this.dino.y - collisionMargin > this.y + this.animation.height;
+    if (isAboveDino) {
       return;
     }
     this.dino.dead = true;

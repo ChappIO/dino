@@ -8,6 +8,8 @@ export class Animation {
     this.sprites = spriteDataUrls.map((url) => {
       const img = new Image();
       img.src = url;
+      img.width = this.width;
+      img.height = this.height;
       return img;
     });
   }
