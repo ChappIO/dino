@@ -9,7 +9,7 @@ export class Animation {
 
   private timer = 0;
   private currentSprite = 0;
-  private readonly sprites: CanvasImageSource[];
+  private readonly sprites: HTMLImageElement[];
 
   public start(): void {
     this.timer = window.setInterval((): void => {
@@ -17,7 +17,7 @@ export class Animation {
     }, 1000 / this.fps);
   }
 
-  public getSprite(): CanvasImageSource {
+  public getSprite(): HTMLImageElement {
     return this.sprites[this.currentSprite];
   }
 

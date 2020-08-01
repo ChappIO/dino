@@ -2,24 +2,36 @@ import { GameObject } from './objects/GameObject';
 import { Dino } from './objects/Dino';
 import { Floor } from './objects/Floor';
 import { Cloud } from './objects/Cloud';
+import { Obstacle } from './objects/Obstacle';
+import { Animation } from './objects/Animation';
+import cactus from './sprites/cactus-1.png';
 
 export class Game {
   constructor(private readonly canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
   }
 
-  private readonly objects: GameObject[] = [];
   private readonly ctx: CanvasRenderingContext2D;
   private updateTimer?: number;
   private drawTimer?: number;
   private lastUpdate = 0;
 
+  private objects: GameObject[] = [];
+  private dino?: Dino;
+
   public start(): void {
     console.log('starting game');
-    this.objects.push(new Cloud(30, 10), new Cloud(100, 400), new Cloud(80, 600));
     const floor = new Floor();
-    const dino = new Dino(floor);
-    this.objects.push(floor, dino);
+    this.dino = new Dino(floor, () => {
+      this.destroy();
+      this.start();
+    });
+    const c = new Obstacle(this.dino, new Animation([cactus], 1), () => floor.vX);
+    c.x = 1200;
+    c.y = floor.y - 50;
+    c.spawned = true;
+
+    this.objects = [new Cloud(30, 10), new Cloud(100, 400), new Cloud(80, 600), floor, c, this.dino];
 
     this.objects.forEach((o) => o.start());
 
@@ -36,9 +48,11 @@ export class Game {
   }
 
   private update(): void {
-    const delta = Date.now() - this.lastUpdate;
-    this.objects.forEach((o) => o.update(delta));
-    this.lastUpdate = Date.now();
+    if (!this.dino?.dead) {
+      const delta = Date.now() - this.lastUpdate;
+      this.objects.forEach((o) => o.update(delta));
+      this.lastUpdate = Date.now();
+    }
   }
 
   private draw(): void {
