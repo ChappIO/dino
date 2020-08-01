@@ -2,6 +2,7 @@
   "name": "prehistoric-dino",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://www.chapp.io/dino",
   "dependencies": {
     "@superscreenpi/uikit": "^0.4.1",
     "@testing-library/jest-dom": "^4.2.4",
@@ -24,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint \"src/**/*.{ts,tsx,json}\"",
-    "clean": "rm -rf */build && yarn lint --fix"
+    "clean": "rm -rf */build && yarn lint --fix",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

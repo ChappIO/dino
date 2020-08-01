@@ -59,7 +59,7 @@ export function register(config?: Config): void {
 
 function registerValidSW(swUrl: string, config?: Config): void {
   navigator.serviceWorker
-    .register(swUrl)
+    .register(swUrl, { scope: '/dino' })
     .then((registration) => {
       registration.onupdatefound = (): void => {
         const installingWorker = registration.installing;
