@@ -46,7 +46,7 @@ export class Obstacle implements GameObject {
     if (isBelowDino) {
       return;
     }
-    const isAboveDino = this.dino.y - collisionMargin > this.y + this.animation.height;
+    const isAboveDino = this.dino.y + collisionMargin > this.y + this.animation.height;
     if (isAboveDino) {
       return;
     }

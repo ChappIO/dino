@@ -33,10 +33,13 @@ export const GameOver: React.FC<Props> = ({ score, onRestart }) => {
             if (!canvas || !blob) {
               return;
             }
+
+            const file = new File([blob], 'dino-score.jpg', { type: 'image/jpeg' });
             const toShare = {
               title: `I got ${score}!`,
               url: window.location.toString(),
-              files: [new File([blob], 'dino-score.jpg', { type: 'image/jpeg' })],
+              files: [file],
+              image: file,
             };
 
             // eslint-disable-next-line
