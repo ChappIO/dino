@@ -22,5 +22,8 @@
   "display": "fullscreen",
   "orientation": "landscape",
   "theme_color": "#000000",
-  "background_color": "#121212"
+  "background_color": "#121212",
+  "categories": [
+    "games"
+  ]
 }
