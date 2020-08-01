@@ -63,6 +63,7 @@ export const App: React.FC = () => {
               game?.destroy();
               game?.start();
               setScore(0);
+              setFinalScore(undefined);
             }}
           />
         )}
