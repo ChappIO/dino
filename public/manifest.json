@@ -1,6 +1,7 @@
 {
   "short_name": "Prehistoric Dino",
   "name": "Prehistoric Dino",
+  "description": "No internet? No problems. Keep running for as long as you can.",
   "icons": [
     {
       "src": "favicon.ico",
