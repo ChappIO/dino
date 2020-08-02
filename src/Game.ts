@@ -7,11 +7,11 @@ import { Obstacles } from './objects/Obstacles';
 export class Game {
   constructor(private readonly canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    this.draw = this.draw.bind(this);
   }
 
   private readonly ctx: CanvasRenderingContext2D;
   private updateTimer?: number;
-  private drawTimer?: number;
   private lastUpdate = 0;
 
   private objects: GameObject[] = [];
@@ -19,6 +19,7 @@ export class Game {
   private calledGameOver = false;
   public gameTime = 0;
   public onGameOver?: (score: number) => void;
+  private active = false;
 
   public start(): void {
     console.log('starting game');
@@ -40,13 +41,14 @@ export class Game {
 
     this.lastUpdate = Date.now();
     this.updateTimer = window.setInterval(() => this.update(), 1000 / 120);
-    this.drawTimer = window.setInterval(() => this.draw(), 1000 / 60);
+    this.active = true;
+    this.draw();
   }
 
   public destroy(): void {
     console.log('destroying game');
     clearInterval(this.updateTimer);
-    clearInterval(this.drawTimer);
+    this.active = false;
     this.objects.forEach((o) => o.destroy());
   }
 
@@ -65,7 +67,12 @@ export class Game {
   }
 
   private draw(): void {
+    if (!this.active) {
+      return;
+    }
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.objects.forEach((o) => o.draw(this.ctx));
+
+    window.requestAnimationFrame(this.draw);
   }
 }
